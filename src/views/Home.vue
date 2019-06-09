@@ -1,7 +1,7 @@
 <template>
   <div id="home">
     <h1>Films</h1>
-    <h2>{{ info }}</h2>
+    <img v-bind:src="image">
   </div>
 </template>
 
@@ -18,16 +18,19 @@ import Component from "../components/Component.vue";
 export default {
   data() {
     return {
-      info: null
+      url: null,
+      http: "https://image.tmdb.org/t/p/w300/",
+      key: "?api_key=05b735a5f79822f887889281f45b295a",
+      image: null
     };
   },
   mounted() {
     axios
       .get(
-        "https://image.tmdb.org/t/p/w500/8uO0gUM8aNqYLs1OsTBQiXu0fEv.jpg?api_key=05b735a5f79822f887889281f45b295a"
+        "https://api.themoviedb.org/3/movie/157336?api_key=05b735a5f79822f887889281f45b295a&append_to_response=videos,images"
       )
-      .then(response => (this.info = response.data))
-      .then(response => console.log(this.info));
+      .then(response => (this.url = response.data.poster_path))
+      .then(response => (this.image = this.http += this.url += this.key)); //Je concatene les plusieurs parties de l'url pour afficher l'image
   }
 };
 </script>
