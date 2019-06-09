@@ -1,29 +1,47 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link>|
-      <router-link to="/page">page</router-link>
+      <router-link to="/">Home |</router-link>
+      <router-link to="/page">| page</router-link>
     </div>
     <router-view/>
   </div>
 </template>
 
 <style lang="scss">
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+//Reset
+body {
+  font: 16px sans-serif;
+  margin: 0;
 }
+h1,
+h1,
+h3,
+p,
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-weight: 100;
+}
+* {
+  box-sizing: border-box;
+}
+//Pagination
 #nav {
-  padding: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
   a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+    text-decoration: none;
+    color: black;
   }
 }
 </style>
