@@ -1,23 +1,12 @@
 <template>
   <div id="home">
     <h1>Films</h1>
-    <div class="img__container">
-      <div>
-        <h2>{{ title() }}</h2>
-        <img v-bind:src="image" alt @click="details()">
-        <p>{{ caption }}</p>
-      </div>
-      <div>
-        <h2>{{ title() }}</h2>
-        <img v-bind:src="image" alt @click="details()">
-        <p>{{ caption }}</p>
-      </div>
-      <div>
-        <h2>{{ title() }}</h2>
-        <img v-bind:src="image" alt @click="details()">
-        <p>{{ caption }}</p>
-      </div>
-    </div>
+    <ul class="img__container">
+      <li v-for="i in this.array">
+        <h2>{{ i.title }}</h2>
+        <img :src="http + i.poster_path" :alt="i.overview">
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -47,11 +36,8 @@ export default {
     return {
       url: null,
       http: "https://image.tmdb.org/t/p/w300/",
-      key: "?api_key=05b735a5f79822f887889281f45b295a",
-      image: null,
-      name: "",
-      caption: "",
-      randomId: ""
+      array: null,
+      name: null
     };
   },
   mounted() {
@@ -59,30 +45,8 @@ export default {
       .get(
         "https://api.themoviedb.org/3/movie/now_playing?api_key=05b735a5f79822f887889281f45b295a&language=en-US&page=1"
       )
-      .then(response => (this.url = response.data.results[0].poster_path))
-      .then(response => (this.image = this.http += this.url += this.key)); //Je concatene les plusieurs parties de l'url pour afficher l'image
-  },
-  methods: {
-    randomNumber() {
-      this.randomId = Math.floor(Math.random() * (10 - 1 + 1)) + 1;
-    },
-    details() {
-      axios
-        .get(
-          "https://api.themoviedb.org/3/movie/now_playing?api_key=05b735a5f79822f887889281f45b295a&language=en-US&page=1"
-        )
-        .then(response => (this.caption = response.data.results[0].overview))
-        .then(response => console.log(this.caption));
-      console.log(randomId);
-    },
-    title() {
-      axios
-        .get(
-          "https://api.themoviedb.org/3/movie/now_playing?api_key=05b735a5f79822f887889281f45b295a&language=en-US&page=1"
-        )
-        .then(response => (this.name = response.data.results[0].title));
-      return this.name;
-    }
+      .then(response => (this.array = response.data.results))
+      .then(response => console.log(this.array));
   }
 };
 </script>
